@@ -3,6 +3,7 @@
 #include <napi.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.UI.Shell.h>
+#include "util.h"
 
 using namespace winrt;
 using namespace Windows::UI::Shell;
@@ -25,7 +26,13 @@ FocusAssist::FocusAssist(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Focu
 Napi::Value FocusAssist::IsEnabled(const Napi::CallbackInfo& info){
     Napi::Env env = info.Env();
 
-    return Napi::Boolean::New(env, manager.IsFocusActive());
+    try {
+        bool isEnabled = manager.IsFocusActive();
+        return Napi::Boolean::New(env, isEnabled);
+    } catch (winrt::hresult_error const& ex) {
+        Napi::Error::New(env, WideStringToNarrowString(ex.message().c_str())).ThrowAsJavaScriptException();
+        return env.Null();
+    }
 }
 
 Napi::Object FocusAssist::Init(Napi::Env env, Napi::Object exports){
@@ -43,8 +50,12 @@ Napi::Object FocusAssist::Init(Napi::Env env, Napi::Object exports){
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports){
-    winrt::init_apartment(winrt::apartment_type::multi_threaded);
-    FocusAssist::Init(env, exports);
+    try {
+        winrt::init_apartment(winrt::apartment_type::single_threaded);
+        FocusAssist::Init(env, exports);
+    } catch (winrt::hresult_error const& ex) {
+        Napi::Error::New(env, WideStringToNarrowString(ex.message().c_str())).ThrowAsJavaScriptException();
+    }
     return exports;
 }
 

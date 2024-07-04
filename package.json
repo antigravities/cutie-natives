@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node-gyp configure build && copy build\\Release\\*.node natives"
+    "build": "node-gyp configure build"
   },
   "repository": {
     "type": "git",
