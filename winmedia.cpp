@@ -38,16 +38,20 @@ AudioPlayer::AudioPlayer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Audi
 }
 
 void AudioPlayer::Play(const Napi::CallbackInfo& info){
-    if(
-        player.PlaybackSession().PlaybackState() != MediaPlaybackState::Playing &&
-        player.PlaybackSession().PlaybackState() != MediaPlaybackState::Paused
-    ) {
-        player.Source(
-            MediaSource::CreateFromUri(Uri(NarrowStringToWideString(source)))
-        );
-    }
+    try {
+        if(
+            player.PlaybackSession().PlaybackState() != MediaPlaybackState::Playing &&
+            player.PlaybackSession().PlaybackState() != MediaPlaybackState::Paused
+        ) {
+            player.Source(
+                MediaSource::CreateFromUri(Uri(NarrowStringToWideString(source)))
+            );
+        }
     
-    player.Play();
+        player.Play();
+    } catch (winrt::hresult_error const& ex) {
+        Napi::Error::New(info.Env(), WideStringToNarrowString(ex.message().c_str())).ThrowAsJavaScriptException();
+    }
 }
 
 void AudioPlayer::Pause(const Napi::CallbackInfo& info){
