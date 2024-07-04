@@ -2,9 +2,8 @@
 
 Native modules I use with some of my applications. This is mainly for me but if you find it useful also go ahead. I don't generally know or work with a bunch of C++ so these might be pretty bad, sorry.
 
-Right now there's only one but I anticipate having more.
-
-- **FocusAssist (`focus`, win32)** - A small module that determines whether Focus Assist is currently enabled under Windows 11. It exposes 1 method, `FocusAssist.isEnabled`.
+- **FocusAssist (`focus`, win32)** - Determines whether Focus Assist is currently enabled under Windows 11. It exposes 1 method, `FocusAssist.isEnabled`.
+- **WinMedia (`winmedia`, win32)** - Plays media - only exposes an AudioPlayer that can play/pause/stop sounds.
 
 ## Install
 

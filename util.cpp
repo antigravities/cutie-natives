@@ -26,3 +26,25 @@ std::string WideStringToNarrowString(const std::wstring& wideString) {
 
     return narrowString;
 }
+
+std::wstring NarrowStringToWideString(const std::string& narrowString){
+    // Calculate the length of the resulting wide string
+    int wideStringLength = MultiByteToWideChar(CP_UTF8, 0, narrowString.c_str(), -1, nullptr, 0);
+    if (wideStringLength == 0) {
+        throw std::runtime_error("Failed to convert narrow string to wide string.");
+    }
+
+    // Allocate a buffer for the wide string
+    std::wstring wideString(wideStringLength, 0);
+
+    // Perform the conversion
+    int result = MultiByteToWideChar(CP_UTF8, 0, narrowString.c_str(), -1, &wideString[0], wideStringLength);
+    if (result == 0) {
+        throw std::runtime_error("Failed to convert narrow string to wide string.");
+    }
+
+    // The result includes the null terminator, so we remove it
+    wideString.pop_back();
+
+    return wideString;
+}
