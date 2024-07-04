@@ -1,0 +1,23 @@
+{
+  "name": "cutie-natives",
+  "version": "0.1.0",
+  "description": "Natives for Cutie Cafe projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node-gyp configure build && copy build\\Release\\*.node natives"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antigravities/cutie-natives.git"
+  },
+  "author": "Alexandra Frock <im@alexandra.moe>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antigravities/cutie-natives/issues"
+  },
+  "homepage": "https://github.com/antigravities/cutie-natives#readme",
+  "dependencies": {
+    "node-addon-api": "^8.0.0"
+  }
+}
