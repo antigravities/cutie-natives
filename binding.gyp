@@ -25,6 +25,19 @@
         "dependencies": [
           "<!(node -p \"require('node-addon-api').gyp\")"
         ]
+      },
+      {
+        "target_name": "outlook",
+        "sources": [
+          "util.cpp",
+          "outlook.cpp"
+        ],
+        "include_dirs": [
+          "<!@(node -p \"require('node-addon-api').include\")"
+        ],
+        "dependencies": [
+          "<!(node -p \"require('node-addon-api').gyp\")"
+        ]
       }
     ]
   }

@@ -1,6 +1,5 @@
 #define NAPI_CPP_EXCEPTIONS 1
 
-#include "util.h"
 #include <string>
 #include <Windows.h>
 #include <stdexcept>
